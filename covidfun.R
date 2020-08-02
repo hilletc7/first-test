@@ -3,6 +3,7 @@ require(gganimate)
 require(dplyr)
 require(gifski)
 
+###Working data visualization functions
 covid.total <- function(x){
   x <- x
   colors <- c("cases"="red", "deaths"="black")
@@ -102,4 +103,26 @@ covid.domestic.new <- function(x){
   animate(p, renderer = gifski_renderer(loop=F))
 }
 
-cat("Instructions: Input a country into either the covid.total(), covid.new(), covid.domestic.total() or covid.domestic.new() command, make sure there are quotes surrounding the country.\nExample: covid.total(\"United States\")\nExample: covid.new(\"United States\")\nExample: covid.domestic.total(\"Hawaii\")\nExample: covid.domestic.new(\"Hawaii\")\n\n")
+cat("Input a country/state into one of the commands listed below.\n\n1) covid.total(\"Country\")\n2) covid.new(\"Country\")\n3) covid.domestic.total(\"State\")\n4) covid.domestic.new(\"State\")\n\nFor more help: commands()\n\n")
+
+
+###Help functions
+commands <- function(){
+  cat("Data Visualization:\n1) covid.total(\"Country\")\n2) covid.new(\"Country\")\n3) covid.domestic.total(\"State\")\n4) covid.domestic.new(\"State\")\n\nView Input List:\n1) countries()\n2) states()\n\nCommands:\n1)commands()")
+}
+
+countries <- function(){
+  dat <- read.csv(url("https://covid.ourworldindata.org/data/owid-covid-data.csv"))
+  country <- dat$location
+  country <- country[!duplicated(country)]
+  country <- as.character(country)
+  print(country)
+}
+
+states <- function(){
+  dat2 <- read.csv(url("https://data.humdata.org/hxlproxy/api/data-preview.csv?url=https%3A%2F%2Fraw.githubusercontent.com%2Fnytimes%2Fcovid-19-data%2Fmaster%2Fus-states.csv&filename=us-states.csv"))
+  state <- dat2$state[order(dat2$state)]
+  state <- state[!duplicated(state)]
+  state <- as.character(state)
+  print(state)
+}
