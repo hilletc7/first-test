@@ -1,18 +1,14 @@
 require(ggplot2)
 require(gganimate)
 require(dplyr)
+require(gifski)
 
-dat <- read.csv(url("https://covid.ourworldindata.org/data/owid-covid-data.csv"))
-sdate <- as.Date(dat$date)
-dat <- cbind(dat, sdate)
-colors <- c("cases"="red", "deaths"="black")
-
-dat2 <- read.csv(url("https://data.humdata.org/hxlproxy/api/data-preview.csv?url=https%3A%2F%2Fraw.githubusercontent.com%2Fnytimes%2Fcovid-19-data%2Fmaster%2Fus-states.csv&filename=us-states.csv"))
-ssdate <- as.Date(dat2$date)
-dat2 <- cbind(dat2, ssdate)
-
-covid.total <- function(x, data=dat){
+covid.total <- function(x){
   x <- x
+  colors <- c("cases"="red", "deaths"="black")
+  dat <- read.csv(url("https://covid.ourworldindata.org/data/owid-covid-data.csv"))
+  sdate <- as.Date(dat$date)
+  dat <- cbind(dat, sdate)
   sdat <- data.frame(dat$location, dat$sdate, dat$total_cases, dat$total_deaths)
   sdat <- sdat %>% filter(sdat$dat.location == x)
   names(sdat)[names(sdat) == "dat.location"] <- "location"
@@ -28,11 +24,15 @@ covid.total <- function(x, data=dat){
                            values = c( "cases" = "red", "deaths" = "black"),
                            labels = c("Cases", "Deaths"))+
           transition_reveal(date)
-  animate(p, end_pause = 20)
+  animate(p, renderer = gifski_renderer(loop=F))
 }
 
-covid.new <- function(x, data=dat){
+covid.new <- function(x){
   x <- x
+  colors <- c("cases"="red", "deaths"="black")
+  dat <- read.csv(url("https://covid.ourworldindata.org/data/owid-covid-data.csv"))
+  sdate <- as.Date(dat$date)
+  dat <- cbind(dat, sdate)
   sdat <- data.frame(dat$location, dat$sdate, dat$new_cases, dat$new_deaths)
   sdat <- sdat %>% filter(sdat$dat.location == x)
   names(sdat)[names(sdat) == "dat.location"] <- "location"
@@ -48,11 +48,15 @@ covid.new <- function(x, data=dat){
                             values = c( "cases" = "red", "deaths" = "black"),
                             labels = c("New Cases", "New Deaths"))+
           transition_reveal(date)
-  animate(p, end_pause = 20)
+  animate(p, renderer = gifski_renderer(loop=F))
 }
 
-covid.domestic.total <- function(x, data=dat2){
+covid.domestic.total <- function(x){
   x <- x
+  colors <- c("cases"="red", "deaths"="black")
+  dat2 <- read.csv(url("https://data.humdata.org/hxlproxy/api/data-preview.csv?url=https%3A%2F%2Fraw.githubusercontent.com%2Fnytimes%2Fcovid-19-data%2Fmaster%2Fus-states.csv&filename=us-states.csv"))
+  ssdate <- as.Date(dat2$date)
+  dat2 <- cbind(dat2, ssdate)
   sdat <- data.frame(dat2$state, dat2$ssdate, dat2$cases, dat2$deaths)
   sdat <- sdat %>% filter(sdat$dat2.state == x)
   names(sdat)[names(sdat) == "dat2.state"] <- "state"
@@ -68,12 +72,16 @@ covid.domestic.total <- function(x, data=dat2){
                        values = c("cases" = "red", "deaths" = "black"),
                        labels = c("Cases", "Deaths"))+
     transition_reveal(date)
-  animate(p, end_pause = 20)
+  animate(p, renderer = gifski_renderer(loop=F))
 }
 
 
-covid.domestic.new <- function(x, data=dat2){
+covid.domestic.new <- function(x){
   x<-x
+  colors <- c("cases"="red", "deaths"="black")
+  dat2 <- read.csv(url("https://data.humdata.org/hxlproxy/api/data-preview.csv?url=https%3A%2F%2Fraw.githubusercontent.com%2Fnytimes%2Fcovid-19-data%2Fmaster%2Fus-states.csv&filename=us-states.csv"))
+  ssdate <- as.Date(dat2$date)
+  dat2 <- cbind(dat2, ssdate)
   cdat <- data.frame(dat2$state, dat2$ssdate, dat2$cases, dat2$deaths)
   cdat <- cdat %>% filter(cdat$dat2.state == x)
   cdat$new_cases <- with(cdat, c(dat2.cases[1], dat2.cases[-1]-dat2.cases[-nrow(cdat)]))
@@ -91,7 +99,7 @@ covid.domestic.new <- function(x, data=dat2){
                        values = c("cases" = "red", "deaths" = "black"),
                        labels = c("Cases", "Deaths"))+
     transition_reveal(date)
-  animate(p, end_pause = 50)
+  animate(p, renderer = gifski_renderer(loop=F))
 }
 
 cat("Instructions: Input a country into either the covid.total(), covid.new(), covid.domestic.total() or covid.domestic.new() command, make sure there are quotes surrounding the country.\nExample: covid.total(\"United States\")\nExample: covid.new(\"United States\")\nExample: covid.domestic.total(\"Hawaii\")\nExample: covid.domestic.new(\"Hawaii\")\n\n")
