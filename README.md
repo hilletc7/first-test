@@ -33,6 +33,7 @@ BUT FIRST, please make sure you install the following packages or this thing wil
 install.packages("ggplot2")
 install.packages("gganimate")
 install.packages("dplyr")
+install.packages("gifski")
 ```
 
 Thanks to https://covid.ourworldindata.org and https://data.humdata.org for making their data publicly available and frequently updated so my kludgy mess is at least accurate.   
