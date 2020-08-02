@@ -3,11 +3,14 @@ require(gganimate)
 require(dplyr)
 require(gifski)
 
+dat <- read.csv(url("https://covid.ourworldindata.org/data/owid-covid-data.csv"))
+dat2 <- read.csv(url("https://data.humdata.org/hxlproxy/api/data-preview.csv?url=https%3A%2F%2Fraw.githubusercontent.com%2Fnytimes%2Fcovid-19-data%2Fmaster%2Fus-states.csv&filename=us-states.csv"))
+
+
 ###Working data visualization functions
-covid.total <- function(x){
+covid.total <- function(x, dat=dat){
   x <- x
   colors <- c("cases"="red", "deaths"="black")
-  dat <- read.csv(url("https://covid.ourworldindata.org/data/owid-covid-data.csv"))
   sdate <- as.Date(dat$date)
   dat <- cbind(dat, sdate)
   sdat <- data.frame(dat$location, dat$sdate, dat$total_cases, dat$total_deaths)
@@ -28,10 +31,9 @@ covid.total <- function(x){
   animate(p, renderer = gifski_renderer(loop=F))
 }
 
-covid.new <- function(x){
+covid.new <- function(x, dat=dat){
   x <- x
   colors <- c("cases"="red", "deaths"="black")
-  dat <- read.csv(url("https://covid.ourworldindata.org/data/owid-covid-data.csv"))
   sdate <- as.Date(dat$date)
   dat <- cbind(dat, sdate)
   sdat <- data.frame(dat$location, dat$sdate, dat$new_cases, dat$new_deaths)
@@ -52,10 +54,9 @@ covid.new <- function(x){
   animate(p, renderer = gifski_renderer(loop=F))
 }
 
-covid.domestic.total <- function(x){
+covid.domestic.total <- function(x, dat=dat2){
   x <- x
   colors <- c("cases"="red", "deaths"="black")
-  dat2 <- read.csv(url("https://data.humdata.org/hxlproxy/api/data-preview.csv?url=https%3A%2F%2Fraw.githubusercontent.com%2Fnytimes%2Fcovid-19-data%2Fmaster%2Fus-states.csv&filename=us-states.csv"))
   ssdate <- as.Date(dat2$date)
   dat2 <- cbind(dat2, ssdate)
   sdat <- data.frame(dat2$state, dat2$ssdate, dat2$cases, dat2$deaths)
@@ -77,10 +78,9 @@ covid.domestic.total <- function(x){
 }
 
 
-covid.domestic.new <- function(x){
+covid.domestic.new <- function(x, dat=dat2){
   x<-x
   colors <- c("cases"="red", "deaths"="black")
-  dat2 <- read.csv(url("https://data.humdata.org/hxlproxy/api/data-preview.csv?url=https%3A%2F%2Fraw.githubusercontent.com%2Fnytimes%2Fcovid-19-data%2Fmaster%2Fus-states.csv&filename=us-states.csv"))
   ssdate <- as.Date(dat2$date)
   dat2 <- cbind(dat2, ssdate)
   cdat <- data.frame(dat2$state, dat2$ssdate, dat2$cases, dat2$deaths)
