@@ -14,7 +14,7 @@ In a sleep deprived and caffine fueled mania I have managed to write a script to
 
 Introducing "covidfun.R".
 
-The "covidfun.R" script comes with 4 commands:
+The "covidfun.R" script comes with 4 simple data visualization commands:
 ```
 covid.total()
 covid.new()
