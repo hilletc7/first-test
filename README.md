@@ -1,4 +1,4 @@
-# low-budget-COVID19-tracking
+# low-budget-COVID19-tracker
 
 Welcome!
 
