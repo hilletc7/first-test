@@ -2,7 +2,7 @@
 
 Welcome!
 
-Are you being bombarded by such an overwhelming amount of COVID19 information that your smol-brain-energy cannot process?
+Are you being bombarded by such an overwhelming amount of COVID19 information that your smol-brain-energy just cannot handle?
 
 Are the web based COVID19 trackers just too mainstream and sleek for your style?
 
@@ -26,9 +26,9 @@ The ```covid.total()``` and ```covid.new()``` commands will plot the number of t
 
 The ```covid.domestic.total()``` and ```covid.domestic.new()``` commands will plot the number of total/new cases based on your US state query so you can observe how piss-poor of a job your state is doing to control the spread. 
 
-So, clone the repo, set your working directory, source the script, sit back and relax (and I do mean relax, this shit is not super-efficient) and watch the off-brand Disney magic unfold.
+So, clone the repo, set your working directory, source the script, sit back and relax (and I do mean relax, this nonsense is not super-efficient) and watch the off-brand Disney magic unfold.
 
-BUT FIRST, please make sure you install the following packages or this thing will refuse listen (much like the people refusing to wear a goddamn mask in public):
+BUT FIRST, please make sure you install the following packages or this thing will refuse listen (much like the people refusing to wear a goshdarn mask in public):
 ```
 install.packages("ggplot2")
 install.packages("gganimate")
